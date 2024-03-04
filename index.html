@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main" id="main">
+        <h2>GPA Calculator</h2>
+    </div>
+    <button class="button" onclick="create()">Add Course</button>
+    <script>
+        var main = 1;
+        let q = [];
+        function create(){
+            var div = document.createElement('div'); 
+            div.id = 'Course' + main;
+            div.className='dev'
+            div.setAttribute('data-value', main); 
+            div.id = 'Course' + main;
+            div.setAttribute('data-value', main);
+            
+            var nameLabel = document.createElement('label');
+            nameLabel.textContent = 'Name:';
+            div.appendChild(nameLabel);
+            nameLabel.className = 'name';
+            var subNameInput = document.createElement('input');
+            subNameInput.type = 'text';
+            subNameInput.className = 'Sub_name';
+            subNameInput.placeholder = 'Enter Subject Name';
+            div.appendChild(subNameInput);
+
+            var creditLabel = document.createElement('label');
+            creditLabel.textContent = 'Credit:';
+            creditLabel.className = 'Credit';
+            div.appendChild(creditLabel);
+            var creditInput = document.createElement('input');
+            creditInput.type = 'number';
+            creditInput.placeholder = 'Creditl';
+            creditInput.min = '0';
+            creditInput.max = '5';
+            div.appendChild(creditInput);
+          
+
+            var gradeLabel = document.createElement('label');
+            gradeLabel.textContent = 'Grade:';
+            gradeLabel.className = 'Gradel';
+            div.appendChild(gradeLabel);
+            var gradeSelect = document.createElement('select');
+            gradeSelect.name = 'Grade';
+            gradeSelect.id = 'grade' + main;
+            var grades = ['O', 'A+', 'A', 'B+', 'B', 'C', 'RA'];
+            grades.forEach(function(grade, index) {
+                var option = document.createElement('option');
+                option.value = 10 - index; // Assigning values from 10 to 0
+                option.textContent = grade;
+                gradeSelect.appendChild(option);
+            });
+            div.appendChild(gradeSelect);
+            var btn = document.createElement('button');
+            btn.className="But"
+            btn.id = "remove" + main;
+            btn.innerHTML = "remove";
+            btn.onclick = function() {
+                var id = this.id.replace('remove', '');
+                var element = document.getElementById('Course' + id);
+                if (element) {
+                    var index = q.indexOf(parseInt(id));
+                    if (index !== -1) {
+                        q.splice(index, 1); 
+                    }
+                    element.parentNode.removeChild(element);
+                }
+            };
+            div.appendChild(btn);
+            document.getElementById("main").appendChild(div);
+            document.getElementById("main").style.height = new String(parseInt(document.getElementById("main").style.height) + 40)+"px" ;
+            q.push(main);
+            console.log(q);
+            main += 1;
+        }
+    </script>
+</body>
+</html>
