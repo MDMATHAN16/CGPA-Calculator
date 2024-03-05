@@ -5,15 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+    </script>
 </head>
 <body>
     <div class="main" id="main">
         <h2>GPA Calculator</h2>
+        <p style="font-size: 13px; color: #e41e87; font-family:monospace; font-weight: bold;">Desined By MD_Media :)</p>
     </div>
-    <button class="button" onclick="create()">Add Course</button>
+    <button class="button add" id="add" onclick="create()">Add Course</button>
+    <button class="button Cal" onclick="calculate()">Calculate GPA</button>
+    <br>
+    <br>
+    <p id="result"></p>
     <script>
         var main = 1;
         let q = [];
+        create();create();create();
         function create(){
             var div = document.createElement('div'); 
             div.id = 'Course' + main;
@@ -38,9 +46,11 @@
             div.appendChild(creditLabel);
             var creditInput = document.createElement('input');
             creditInput.type = 'number';
+            creditInput.id = 'credit'+main;
             creditInput.placeholder = 'Creditl';
             creditInput.min = '0';
             creditInput.max = '5';
+            creditInput.defaultValue='0'
             div.appendChild(creditInput);
           
 
@@ -50,7 +60,7 @@
             div.appendChild(gradeLabel);
             var gradeSelect = document.createElement('select');
             gradeSelect.name = 'Grade';
-            gradeSelect.id = 'grade' + main;
+            gradeSelect.id = 'grade'+main;
             var grades = ['O', 'A+', 'A', 'B+', 'B', 'C', 'RA'];
             grades.forEach(function(grade, index) {
                 var option = document.createElement('option');
@@ -81,6 +91,39 @@
             console.log(q);
             main += 1;
         }
+        function calculate()
+        {
+            let m = 0,n=0;
+            let fl =0;
+            for(let i=0;i<q.length;i++)
+            {
+                let s ="grade"+q[i]
+                let c = "credit"+q[i];
+                let grade = document.getElementById(s).value;
+                let credit =document.getElementById(c).value;
+                if(grade ==4)
+                {
+                    fl =1;
+                    break;
+                }
+                m+=parseFloat(credit)
+                n+=(parseFloat(credit)*parseFloat(grade));
+            }if(fl==0 &&(m!=0 && n!=0)){
+            x = (n/m).toFixed(2);
+            let res = document.getElementById("result")
+            if(x==NaN)
+                x=0
+            res.innerHTML =" Your GPA is "+x;
+            res.className="Pass";
+            }
+            else{
+                let res = document.getElementById("result")
+                res.innerHTML ="Not eligible";
+                res.className="Fail"
+            }
+            
+        }
+        
     </script>
 </body>
 </html>
